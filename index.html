@@ -4,28 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>RAIA — Reflecting Tomorrow | AI Assistant</title>
-
-    <!-- ─── SEO ─── -->
     <meta name="description" content="RAIA — Reflecting Tomorrow. A symmetric AI chat interface with multi-provider support (OpenRouter, OpenAI, Perplexity, Claude, Gemini, Mistral)." />
     <meta name="keywords" content="AI, chat, assistant, artificial intelligence, OpenRouter, OpenAI, Claude, Gemini, Mistral, Perplexity, chat interface" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://raia-ai.netlify.app/" />
-
-    <!-- ─── Open Graph ─── -->
     <meta property="og:title" content="RAIA — Reflecting Tomorrow" />
     <meta property="og:description" content="A symmetric AI chat interface with multi-provider support. Reflecting tomorrow, today." />
     <meta property="og:image" content="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" />
     <meta property="og:url" content="https://raia-ai.netlify.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="RAIA" />
-
-    <!-- ─── Twitter Cards ─── -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="RAIA — Reflecting Tomorrow" />
     <meta name="twitter:description" content="A symmetric AI chat interface with multi-provider support." />
     <meta name="twitter:image" content="https://i.postimg.cc/28bKx4xC/raia2.webp" />
-
-    <!-- ─── JSON‑LD Structured Data ─── -->
     <script type="application/ld+json">
         {
             "@context": "https://schema.org",
@@ -39,18 +31,13 @@
             "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
         }
     </script>
-
     <link rel="icon" type="image/webp" href="https://i.postimg.cc/28bKx4xC/raia2.webp" />
-
-    <!-- ─── Fonts: Inter + JetBrains Mono ─── -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
     <style>
-        /* ═══════════════════════════════════════════════════════════════════
-           RESET & TOKENS — Apple-inspired Liquid Glass
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── RESET & TOKENS ── */
         *,
         *::before,
         *::after {
@@ -61,38 +48,27 @@
         }
 
         :root {
-            /* ─── Typography ─── */
             --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-
-            /* ─── Radius ─── */
             --radius-xs: 6px;
             --radius-sm: 10px;
             --radius-md: 16px;
             --radius-lg: 22px;
             --radius-xl: 28px;
             --radius-full: 9999px;
-
-            /* ─── Easing ─── */
             --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
             --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
             --ease-out: cubic-bezier(0, 0, 0.2, 1);
             --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-
-            /* ─── Durations ─── */
             --dur-fast: 180ms;
             --dur-med: 300ms;
             --dur-slow: 450ms;
-
-            /* ─── Glass ─── */
             --glass-blur: 28px;
             --glass-saturate: 180%;
             --glass-opacity: 0.06;
             --glass-border-opacity: 0.10;
             --glass-highlight-opacity: 0.12;
-
-            /* ─── Shadows ─── */
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
             --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.12);
             --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.20);
@@ -100,119 +76,92 @@
             --shadow-glow: 0 0 40px var(--accent-glow);
         }
 
-        /* ─── Dark Theme ─── */
         [data-theme="dark"] {
             --bg-primary: #05070d;
             --bg-secondary: #080b16;
             --bg-tertiary: #0c1120;
-
             --surface: rgba(255, 255, 255, 0.04);
             --surface-strong: rgba(255, 255, 255, 0.08);
             --surface-glass: rgba(255, 255, 255, 0.05);
             --surface-glass-strong: rgba(255, 255, 255, 0.10);
-
             --border: rgba(255, 255, 255, 0.08);
             --border-strong: rgba(255, 255, 255, 0.16);
             --border-focus: rgba(59, 130, 246, 0.40);
-
             --highlight: rgba(255, 255, 255, 0.08);
             --highlight-strong: rgba(255, 255, 255, 0.14);
-
             --text-primary: #f1f5f9;
             --text-secondary: #c8d0dc;
             --text-tertiary: #94a3b8;
             --text-quaternary: #64748b;
-
             --accent: #3b82f6;
             --accent-2: #60a5fa;
             --accent-glow: rgba(59, 130, 246, 0.30);
             --accent-subtle: rgba(59, 130, 246, 0.12);
-
             --gradient-accent: linear-gradient(135deg, #3b82f6, #2563eb);
             --gradient-accent-soft: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(37, 99, 235, 0.15));
-
             --user-bg: linear-gradient(135deg, #3b82f6, #2563eb);
             --user-text: #ffffff;
             --assistant-bg: rgba(255, 255, 255, 0.04);
-
             --success: #34d399;
             --success-glow: rgba(52, 211, 153, 0.25);
             --danger: #f87171;
             --danger-glow: rgba(248, 113, 113, 0.25);
             --warning: #fbbf24;
-
             --scrollbar-track: transparent;
             --scrollbar-thumb: rgba(255, 255, 255, 0.15);
             --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
-
             --shadow-color: 0, 0, 0;
             --shadow-ambient: 0 8px 32px rgba(0, 0, 0, 0.35);
-
             --aurora-1: rgba(59, 130, 246, 0.12);
             --aurora-2: rgba(139, 92, 246, 0.08);
             --aurora-3: rgba(59, 130, 246, 0.06);
-
             --spotlight-blend: screen;
             --spotlight-opacity: 0.50;
         }
 
-        /* ─── Light Theme ─── */
         [data-theme="light"] {
             --bg-primary: #eef2f9;
             --bg-secondary: #e8ecf5;
             --bg-tertiary: #e0e5f0;
-
             --surface: rgba(255, 255, 255, 0.50);
             --surface-strong: rgba(255, 255, 255, 0.70);
             --surface-glass: rgba(255, 255, 255, 0.45);
             --surface-glass-strong: rgba(255, 255, 255, 0.70);
-
             --border: rgba(15, 23, 42, 0.07);
             --border-strong: rgba(15, 23, 42, 0.13);
             --border-focus: rgba(37, 99, 235, 0.30);
-
             --highlight: rgba(255, 255, 255, 0.60);
             --highlight-strong: rgba(255, 255, 255, 0.80);
-
             --text-primary: #0b1220;
             --text-secondary: #1e293b;
             --text-tertiary: #5b6b84;
             --text-quaternary: #8a9bb5;
-
             --accent: #2563eb;
             --accent-2: #3b82f6;
             --accent-glow: rgba(37, 99, 235, 0.20);
             --accent-subtle: rgba(37, 99, 235, 0.08);
-
             --gradient-accent: linear-gradient(135deg, #2563eb, #1d4ed8);
             --gradient-accent-soft: linear-gradient(135deg, rgba(37, 99, 235, 0.12), rgba(29, 78, 216, 0.06));
-
             --user-bg: linear-gradient(135deg, #2563eb, #1d4ed8);
             --user-text: #ffffff;
             --assistant-bg: rgba(255, 255, 255, 0.50);
-
             --success: #059669;
             --success-glow: rgba(5, 150, 105, 0.20);
             --danger: #dc2626;
             --danger-glow: rgba(220, 38, 38, 0.20);
             --warning: #d97706;
-
             --scrollbar-track: transparent;
             --scrollbar-thumb: rgba(15, 23, 42, 0.12);
             --scrollbar-thumb-hover: rgba(15, 23, 42, 0.20);
-
             --shadow-color: 15, 23, 42;
             --shadow-ambient: 0 8px 32px rgba(15, 23, 42, 0.08);
-
             --aurora-1: rgba(59, 130, 246, 0.08);
             --aurora-2: rgba(139, 92, 246, 0.05);
             --aurora-3: rgba(59, 130, 246, 0.04);
-
             --spotlight-blend: multiply;
             --spotlight-opacity: 0.25;
         }
 
-        /* ─── Base ─── */
         html {
             font-size: 16px;
             scroll-behavior: smooth;
@@ -246,7 +195,6 @@
             overflow-x: hidden;
         }
 
-        /* ─── Scrollbar ─── */
         ::-webkit-scrollbar {
             width: 5px;
             height: 5px;
@@ -263,9 +211,7 @@
             background: var(--scrollbar-thumb-hover);
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           AMBIENT BACKGROUNDS
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── AMBIENT BACKGROUNDS ── */
         .aurora {
             position: fixed;
             inset: 0;
@@ -298,7 +244,6 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        /* ─── Mouse-follow spotlight ─── */
         .spotlight {
             position: fixed;
             inset: 0;
@@ -322,9 +267,7 @@
             }
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           GLASS UTILITY
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── GLASS UTILITY ── */
         .glass {
             background: var(--surface-glass);
             backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
@@ -357,7 +300,6 @@
             border-color: var(--border-strong);
         }
 
-        /* ─── Scroll progress ─── */
         .scroll-progress {
             position: fixed;
             top: 0;
@@ -372,9 +314,7 @@
             border-radius: 0 2px 2px 0;
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           HEADER — Fixed glass navigation
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── HEADER ── */
         header {
             position: sticky;
             top: 0;
@@ -488,7 +428,6 @@
             outline-offset: 2px;
         }
 
-        /* ─── Settings toggle ─── */
         .settings-toggle {
             display: flex;
             align-items: center;
@@ -527,9 +466,7 @@
             }
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           SETTINGS PANEL — Glass dropdown
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── SETTINGS PANEL ── */
         .settings-panel {
             margin: 0 0.8rem;
             max-height: 0;
@@ -682,7 +619,6 @@
             margin-top: 2px;
         }
 
-        /* ─── Buttons ─── */
         .btn {
             font-family: var(--font-body);
             font-size: 0.7rem;
@@ -769,7 +705,6 @@
             color: var(--text-primary);
         }
 
-        /* ─── Status badge ─── */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -809,7 +744,6 @@
             }
         }
 
-        /* ─── Advanced toggle ─── */
         .advanced-toggle {
             cursor: pointer;
             font-size: 0.62rem;
@@ -849,7 +783,6 @@
             padding-top: 0.6rem;
         }
 
-        /* ─── Slider row ─── */
         .slider-row {
             display: flex;
             flex-wrap: wrap;
@@ -918,9 +851,7 @@
             font-variant-numeric: tabular-nums;
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           CHAT AREA
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── CHAT AREA ── */
         .chat-container {
             flex: 1;
             display: flex;
@@ -941,7 +872,6 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* ─── Jump to bottom ─── */
         .jump-bottom {
             position: absolute;
             bottom: 16px;
@@ -980,7 +910,6 @@
             transform: translateX(-50%) translateY(-1px);
         }
 
-        /* ─── Welcome ─── */
         .welcome {
             display: flex;
             flex-direction: column;
@@ -1077,7 +1006,7 @@
             transform: scale(0.96);
         }
 
-        /* ─── Message bubbles ─── */
+        /* ── MESSAGES ── */
         .msg {
             display: flex;
             gap: 10px;
@@ -1297,7 +1226,6 @@
             background: var(--success-glow);
         }
 
-        /* ─── Typing indicator ─── */
         .typing {
             display: flex;
             gap: 4px;
@@ -1331,9 +1259,7 @@
             }
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           INPUT AREA
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── INPUT AREA ── */
         .input-area {
             padding: 0.6rem 1.2rem 0.9rem;
             flex-shrink: 0;
@@ -1496,9 +1422,7 @@
             outline-offset: 2px;
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           TOASTS
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── TOASTS ── */
         .toasts {
             position: fixed;
             top: 76px;
@@ -1555,11 +1479,190 @@
             }
         }
 
-        /* ═══════════════════════════════════════════════════════════════════
-           RESPONSIVE
-           ═══════════════════════════════════════════════════════════════════ */
+        /* ── HISTORY DRAWER ── */
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 98;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--dur-med) ease;
+        }
+        .drawer-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
 
-        /* ─── 1024px+ ─── */
+        .history-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 380px;
+            max-width: 85vw;
+            background: var(--surface-glass-strong);
+            backdrop-filter: blur(36px) saturate(190%);
+            -webkit-backdrop-filter: blur(36px) saturate(190%);
+            border-left: 1px solid var(--border-strong);
+            box-shadow: var(--shadow-xl);
+            z-index: 99;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform var(--dur-slow) var(--ease-smooth);
+        }
+        .history-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            padding: 1rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            min-height: 60px;
+        }
+        .drawer-header h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        .drawer-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .drawer-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+
+        .history-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .history-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: var(--radius-sm);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all var(--dur-fast) ease;
+            gap: 8px;
+        }
+        .history-item:hover {
+            background: var(--surface-glass-strong);
+            border-color: var(--accent-subtle);
+            transform: translateY(-1px);
+        }
+        .history-item.active {
+            border-color: var(--accent);
+            background: var(--accent-subtle);
+            box-shadow: 0 0 0 1px var(--accent-subtle);
+        }
+        .history-item .info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            overflow: hidden;
+            flex: 1;
+            min-width: 0;
+        }
+        .history-item .title {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .history-item .date {
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            font-family: var(--font-mono);
+        }
+        .history-item .del-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: var(--radius-xs);
+            font-size: 0.9rem;
+            transition: all var(--dur-fast) ease;
+            flex-shrink: 0;
+        }
+        .history-item .del-btn:hover {
+            color: var(--danger);
+            background: var(--danger-glow);
+        }
+
+        .history-empty {
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+        }
+        .history-empty .empty-icon {
+            font-size: 2rem;
+            opacity: 0.4;
+        }
+
+        @media (max-width: 600px) {
+            .history-drawer {
+                width: 85vw;
+                max-width: 85vw;
+            }
+            .drawer-header {
+                padding: 0.8rem 1rem;
+                min-height: 52px;
+            }
+            .drawer-body {
+                padding: 0.8rem;
+            }
+            .history-item {
+                padding: 8px 10px;
+            }
+            .history-item .title {
+                font-size: 0.74rem;
+            }
+        }
+        @media (max-width: 400px) {
+            .history-drawer {
+                width: 90vw;
+                max-width: 90vw;
+            }
+        }
+        @media (min-width: 1200px) {
+            .history-drawer {
+                width: 420px;
+                max-width: 42vw;
+            }
+        }
+        @media (min-width: 1600px) {
+            .history-drawer {
+                width: 480px;
+                max-width: 36vw;
+            }
+        }
+
+        /* ── RESPONSIVE ── */
         @media (min-width: 1024px) {
             .messages {
                 padding: 1.6rem 2.4rem 0.4rem;
@@ -1584,7 +1687,6 @@
             }
         }
 
-        /* ─── 768px ─── */
         @media (max-width: 768px) {
             header {
                 padding: 0.45rem 0.8rem;
@@ -1664,7 +1766,6 @@
             }
         }
 
-        /* ─── 600px ─── */
         @media (max-width: 600px) {
             .settings-grid {
                 grid-template-columns: 1fr;
@@ -1692,7 +1793,6 @@
             }
         }
 
-        /* ─── 480px ─── */
         @media (max-width: 480px) {
             .msg {
                 max-width: 94%;
@@ -1788,7 +1888,6 @@
             }
         }
 
-        /* ─── 375px ─── */
         @media (max-width: 375px) {
             .logo-text small {
                 display: none;
@@ -1839,7 +1938,6 @@
             }
         }
 
-        /* ─── 320px ─── */
         @media (max-width: 320px) {
             .logo-text {
                 font-size: 0.65rem;
@@ -1934,7 +2032,6 @@
             }
         }
 
-        /* ─── 820px (iPad) ─── */
         @media (min-width: 820px) and (max-width: 1024px) {
             .msg {
                 max-width: 78%;
@@ -1956,7 +2053,6 @@
             }
         }
 
-        /* ─── 1280px+ ─── */
         @media (min-width: 1280px) {
             .messages {
                 padding: 2rem 3.2rem 0.6rem;
@@ -1992,7 +2088,6 @@
             }
         }
 
-        /* ─── 1600px+ ─── */
         @media (min-width: 1600px) {
             .messages {
                 padding: 2.4rem 4rem 0.6rem;
@@ -2014,7 +2109,6 @@
             }
         }
 
-        /* ─── 1920px+ ─── */
         @media (min-width: 1920px) {
             .messages {
                 padding: 2.8rem 5rem 0.8rem;
@@ -2039,7 +2133,6 @@
             }
         }
 
-        /* ─── Focus visible (accessibility) ─── */
         a:focus-visible,
         button:focus-visible,
         input:focus-visible,
@@ -2050,7 +2143,6 @@
             outline-offset: 2px;
         }
 
-        /* ─── Reduced motion ─── */
         @media (prefers-reduced-motion: reduce) {
             .aurora {
                 animation: none;
@@ -2076,20 +2168,20 @@
             }
         }
 
-        /* ─── Selection ─── */
         ::selection {
             background: var(--accent-subtle);
             color: var(--text-primary);
         }
 
-        /* ─── Print ─── */
         @media print {
             .aurora,
             .noise,
             .spotlight,
             .scroll-progress,
             .toasts,
-            .jump-bottom {
+            .jump-bottom,
+            .drawer-overlay,
+            .history-drawer {
                 display: none !important;
             }
             header {
@@ -2124,9 +2216,6 @@
     <div class="spotlight" id="spotlight" aria-hidden="true"></div>
     <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-    HEADER
-    ═══════════════════════════════════════════════════════════════════ -->
     <header id="header" role="banner">
         <a class="logo" href="#" aria-label="RAIA — Reflecting Tomorrow">
             <img class="logo-img" src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="RAIA logo" width="38" height="38" loading="eager" decoding="async" />
@@ -2134,16 +2223,14 @@
         </a>
         <div class="header-actions">
             <button class="settings-toggle" id="settingsToggle" aria-label="Open settings" aria-expanded="false">
-                <span aria-hidden="true">⚙️</span> <span class="label">Settings</span>
+                <span aria-hidden="true">⚙</span> <span class="label">Setup API</span>
             </button>
-            <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">🌓</button>
+            <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☀︎</button>
             <button class="icon-btn" id="newChatBtn" aria-label="New chat" title="New chat (Ctrl+N)">✚</button>
+            <button class="icon-btn" id="historyToggle" aria-label="Chat history" title="History (Ctrl+H)">⋮</button>
         </div>
     </header>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-    SETTINGS PANEL
-    ═══════════════════════════════════════════════════════════════════ -->
     <div class="settings-panel" id="settingsPanel" role="region" aria-label="Settings">
         <div class="settings-grid">
             <div class="field">
@@ -2204,13 +2291,10 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-    CHAT
-    ═══════════════════════════════════════════════════════════════════ -->
     <div class="chat-container">
         <div class="messages" id="messages" aria-live="polite" role="log">
             <div class="welcome" id="welcome">
-                <div class="icon-orb" aria-hidden="true">✦</div>
+                <div class="icon-orb" aria-hidden="true">♕</div>
                 <h2>RAIA — Reflecting Tomorrow</h2>
                 <p>Configure your <strong>API key</strong> in Settings, pick a provider and model, then start the conversation. Symmetric intelligence is ready to assist you.</p>
                 <div class="suggestion-chips" id="suggestionChips">
@@ -2239,18 +2323,26 @@
         </div>
     </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════════
-    TOASTS
-    ═══════════════════════════════════════════════════════════════════ -->
+    <div class="drawer-overlay" id="historyOverlay"></div>
+    <aside class="history-drawer" id="historyDrawer" role="dialog" aria-label="Chat history">
+        <div class="drawer-header">
+            <h3>📜 Riwayat Chat</h3>
+            <div class="drawer-header-actions">
+                <button class="btn btn-primary btn-sm" id="newChatDrawerBtn">+ Chat Baru</button>
+                <button class="icon-btn" id="closeHistoryBtn" aria-label="Close history">&times;</button>
+            </div>
+        </div>
+        <div class="drawer-body">
+            <ul class="history-list" id="chatHistoryList"></ul>
+        </div>
+    </aside>
+
     <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
 
     <script>
         (function() {
             'use strict';
 
-            // ═══════════════════════════════════════════════════════════════════
-            // PROVIDER DATA
-            // ═══════════════════════════════════════════════════════════════════
             const PROVIDERS = {
                 OpenRouter: {
                     label: 'OpenRouter',
@@ -2299,9 +2391,6 @@
                 }
             };
 
-            // ═══════════════════════════════════════════════════════════════════
-            // DOM REFS
-            // ═══════════════════════════════════════════════════════════════════
             const $ = s => document.querySelector(s);
             const $$ = s => document.querySelectorAll(s);
 
@@ -2343,10 +2432,13 @@
             const advancedToggle = $('#advancedToggle');
             const advancedContent = $('#advancedContent');
             const header = $('#header');
+            const historyToggle = $('#historyToggle');
+            const historyDrawer = $('#historyDrawer');
+            const historyOverlay = $('#historyOverlay');
+            const closeHistoryBtn = $('#closeHistoryBtn');
+            const chatHistoryList = $('#chatHistoryList');
+            const newChatDrawerBtn = $('#newChatDrawerBtn');
 
-            // ═══════════════════════════════════════════════════════════════════
-            // STATE
-            // ═══════════════════════════════════════════════════════════════════
             let state = {
                 provider: 'OpenRouter',
                 model: '',
@@ -2359,14 +2451,12 @@
                 theme: null,
                 messages: [],
                 loading: false,
-                chatId: Date.now().toString(36)
+                chatId: Date.now().toString(36),
+                currentSessionId: null
             };
 
             let abortController = null;
 
-            // ═══════════════════════════════════════════════════════════════════
-            // LOAD / SAVE
-            // ═══════════════════════════════════════════════════════════════════
             function load() {
                 try {
                     const raw = localStorage.getItem('raia_simple');
@@ -2381,6 +2471,8 @@
                     const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
                     state.theme = prefersLight ? 'light' : 'dark';
                 }
+                const savedSessionId = localStorage.getItem('raia_current_session');
+                if (savedSessionId) state.currentSessionId = savedSessionId;
             }
 
             function save() {
@@ -2388,12 +2480,14 @@
                     const toSave = Object.assign({}, state);
                     if (!state.rememberKey) toSave.apiKey = '';
                     localStorage.setItem('raia_simple', JSON.stringify(toSave));
+                    if (state.currentSessionId) {
+                        localStorage.setItem('raia_current_session', state.currentSessionId);
+                    } else {
+                        localStorage.removeItem('raia_current_session');
+                    }
                 } catch (_) { /* ignore */ }
             }
 
-            // ═══════════════════════════════════════════════════════════════════
-            // UI HELPERS
-            // ═══════════════════════════════════════════════════════════════════
             const TOAST_ICONS = { success: '✅', error: '⚠️', info: 'ℹ️' };
 
             function toast(msg, type = 'success') {
@@ -2434,6 +2528,7 @@
                 state.messages.push({ role, content, ts: Date.now() });
                 save();
                 renderMessages();
+                saveCurrentSession();
             }
 
             function isNearBottom() {
@@ -2493,7 +2588,8 @@
                         regenBtn.innerHTML = '🔄 Regenerate';
                         regenBtn.addEventListener('click', () => {
                             const idx = state.messages.indexOf(m);
-                            const lastUser = [...state.messages.slice(0, idx)].reverse().find(mm => mm.role === 'user');
+                            const lastUser = [...state.messages.slice(0, idx)].reverse().find(mm => mm.role ===
+                            'user');
                             if (lastUser) {
                                 state.messages.splice(idx, 1);
                                 save();
@@ -2582,9 +2678,6 @@
                 if (el) el.remove();
             }
 
-            // ═══════════════════════════════════════════════════════════════════
-            // PROVIDER / MODEL
-            // ═══════════════════════════════════════════════════════════════════
             function populateProviders() {
                 providerEl.innerHTML = '';
                 Object.keys(PROVIDERS).forEach(key => {
@@ -2645,9 +2738,6 @@
             customBaseUrlEl.addEventListener('change', () => { state.customBaseUrl = customBaseUrlEl.value.trim();
                 save(); });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // API KEY EYE
-            // ═══════════════════════════════════════════════════════════════════
             eyeToggle.addEventListener('click', () => {
                 const isPass = apiKeyEl.type === 'password';
                 apiKeyEl.type = isPass ? 'text' : 'password';
@@ -2661,9 +2751,34 @@
                     'API key will only be kept for this session', 'info');
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // CONNECT
-            // ═══════════════════════════════════════════════════════════════════
+            function applyApiKeyDirectly() {
+                const val = apiKeyEl.value.trim();
+                if (val) {
+                    state.apiKey = val;
+                    state.connected = true;
+                    updateStatus();
+                    save();
+                }
+            }
+
+            apiKeyEl.addEventListener('input', () => {
+                applyApiKeyDirectly();
+            });
+
+            apiKeyEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    applyApiKeyDirectly();
+                    settingsPanel.classList.remove('open');
+                    settingsToggle.classList.remove('active');
+                    settingsToggle.setAttribute('aria-expanded', 'false');
+                    const label = settingsToggle.querySelector('.label');
+                    if (label) label.textContent = 'Setup API';
+                    prompt.focus();
+                    toast('API Key applied — you can now chat!', 'success');
+                }
+            });
+
             connectBtn.addEventListener('click', () => {
                 const key = apiKeyEl.value.trim();
                 if (!key) { toast('API Key cannot be empty', 'error');
@@ -2675,9 +2790,6 @@
                 toast('Connected & saved', 'success');
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // TEST
-            // ═══════════════════════════════════════════════════════════════════
             testBtn.addEventListener('click', async () => {
                 const key = apiKeyEl.value.trim() || state.apiKey;
                 if (!key) { toast('Enter an API key first', 'error');
@@ -2748,18 +2860,12 @@
                 return m;
             }
 
-            // ═══════════════════════════════════════════════════════════════════
-            // STATUS
-            // ═══════════════════════════════════════════════════════════════════
             function updateStatus() {
                 statusDot.className = state.connected ? 'dot on' : 'dot';
                 statusText.textContent = state.connected ? 'Connected' : 'Disconnected';
                 settingsToggle.classList.toggle('active', settingsPanel.classList.contains('open'));
             }
 
-            // ═══════════════════════════════════════════════════════════════════
-            // SLIDERS
-            // ═══════════════════════════════════════════════════════════════════
             tempSlider.addEventListener('input', () => { state.temp = parseFloat(tempSlider.value);
                 tempDisplay.textContent = state.temp.toFixed(1);
                 save(); });
@@ -2767,25 +2873,20 @@
                 tokDisplay.textContent = state.maxTokens;
                 save(); });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // ADVANCED TOGGLE
-            // ═══════════════════════════════════════════════════════════════════
             advancedToggle.addEventListener('click', () => {
                 const open = advancedContent.classList.toggle('open');
                 advancedToggle.classList.toggle('open', open);
                 advancedToggle.setAttribute('aria-expanded', String(open));
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // RESET
-            // ═══════════════════════════════════════════════════════════════════
             resetBtn.addEventListener('click', () => {
                 if (!confirm('Reset all chat history and configuration? This cannot be undone.')) return;
                 if (abortController) abortController.abort();
                 state = {
                     provider: 'OpenRouter', model: '', apiKey: '', rememberKey: true, customBaseUrl: '',
                     connected: false, temp: 0.7, maxTokens: 1024, theme: state.theme,
-                    messages: [], loading: false, chatId: Date.now().toString(36)
+                    messages: [], loading: false, chatId: Date.now().toString(36),
+                    currentSessionId: null
                 };
                 apiKeyEl.value = '';
                 customBaseUrlEl.value = '';
@@ -2797,13 +2898,11 @@
                 populateProviders();
                 updateStatus();
                 save();
+                localStorage.removeItem('raia_current_session');
                 renderMessages({ forceScroll: true });
                 toast('Everything has been reset', 'success');
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // SEND TO AI
-            // ═══════════════════════════════════════════════════════════════════
             function setLoadingUI(isLoading) {
                 state.loading = isLoading;
                 sendBtn.classList.toggle('stop-mode', isLoading);
@@ -2907,9 +3006,6 @@
                 }
             }
 
-            // ═══════════════════════════════════════════════════════════════════
-            // CHAT FORM
-            // ═══════════════════════════════════════════════════════════════════
             chatForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 if (state.loading) {
@@ -2952,32 +3048,162 @@
                 prompt.setSelectionRange(prompt.value.length, prompt.value.length);
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // NEW CHAT
-            // ═══════════════════════════════════════════════════════════════════
+            function getSavedSessions() {
+                try {
+                    return JSON.parse(localStorage.getItem('raia_chat_sessions') || '[]');
+                } catch (_) { return []; }
+            }
+
+            function saveCurrentSession() {
+                if (!state.messages || state.messages.length === 0) return;
+                let sessions = getSavedSessions();
+
+                let currentId = state.currentSessionId || state.chatId || Date.now().toString(36);
+                state.currentSessionId = currentId;
+                state.chatId = currentId;
+
+                const firstUserMsg = state.messages.find(m => m.role === 'user');
+                const title = firstUserMsg ? firstUserMsg.content.slice(0, 40) + (firstUserMsg.content.length > 40 ? '…' :
+                    '') : 'New Chat';
+
+                const sessionData = {
+                    id: currentId,
+                    title: title,
+                    date: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit',
+                        minute: '2-digit' }),
+                    messages: state.messages.slice()
+                };
+
+                const existingIndex = sessions.findIndex(s => s.id === currentId);
+                if (existingIndex >= 0) {
+                    sessions[existingIndex] = sessionData;
+                } else {
+                    sessions.unshift(sessionData);
+                }
+
+                if (sessions.length > 50) sessions = sessions.slice(0, 50);
+
+                localStorage.setItem('raia_chat_sessions', JSON.stringify(sessions));
+                localStorage.setItem('raia_current_session', currentId);
+            }
+
+            function renderHistoryList() {
+                const sessions = getSavedSessions();
+                chatHistoryList.innerHTML = '';
+
+                if (sessions.length === 0) {
+                    chatHistoryList.innerHTML = `
+                        <li class="history-empty">
+                            <span class="empty-icon">💬</span>
+                            <span>Belum ada riwayat percakapan.</span>
+                            <span style="font-size:0.65rem;color:var(--text-quaternary);">Mulai chat baru untuk menyimpan percakapan.</span>
+                        </li>
+                    `;
+                    return;
+                }
+
+                sessions.forEach(session => {
+                    const li = document.createElement('li');
+                    li.className = `history-item ${session.id === state.currentSessionId ? 'active' : ''}`;
+                    li.innerHTML = `
+                        <div class="info">
+                            <span class="title">${escapeHtml(session.title)}</span>
+                            <span class="date">${escapeHtml(session.date)}</span>
+                        </div>
+                        <button class="del-btn" title="Hapus chat" aria-label="Delete chat">&times;</button>
+                    `;
+
+                    li.addEventListener('click', (e) => {
+                        if (e.target.classList.contains('del-btn')) return;
+                        if (abortController) abortController.abort();
+                        state.currentSessionId = session.id;
+                        state.messages = session.messages.slice();
+                        state.chatId = session.id;
+                        renderMessages({ forceScroll: true });
+                        closeHistoryDrawer();
+                        save();
+                    });
+
+                    li.querySelector('.del-btn').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        let updated = getSavedSessions().filter(s => s.id !== session.id);
+                        localStorage.setItem('raia_chat_sessions', JSON.stringify(updated));
+                        if (state.currentSessionId === session.id) {
+                            state.messages = [];
+                            state.currentSessionId = null;
+                            state.chatId = Date.now().toString(36);
+                            renderMessages({ forceScroll: true });
+                            save();
+                            localStorage.removeItem('raia_current_session');
+                        }
+                        renderHistoryList();
+                        toast('Chat deleted', 'info');
+                    });
+
+                    chatHistoryList.appendChild(li);
+                });
+            }
+
+            function openHistoryDrawer() {
+                renderHistoryList();
+                historyDrawer.classList.add('open');
+                historyOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeHistoryDrawer() {
+                historyDrawer.classList.remove('open');
+                historyOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            historyToggle.addEventListener('click', openHistoryDrawer);
+            closeHistoryBtn.addEventListener('click', closeHistoryDrawer);
+            historyOverlay.addEventListener('click', closeHistoryDrawer);
+
+            newChatDrawerBtn.addEventListener('click', () => {
+                if (abortController) abortController.abort();
+                state.messages = [];
+                state.currentSessionId = null;
+                state.chatId = Date.now().toString(36);
+                localStorage.removeItem('raia_current_session');
+                renderMessages({ forceScroll: true });
+                closeHistoryDrawer();
+                save();
+                toast('New chat started', 'success');
+                prompt.focus();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'h') {
+                    e.preventDefault();
+                    if (historyDrawer.classList.contains('open')) {
+                        closeHistoryDrawer();
+                    } else {
+                        openHistoryDrawer();
+                    }
+                }
+            });
+
             newChatBtn.addEventListener('click', () => {
                 if (abortController) abortController.abort();
                 state.messages = [];
+                state.currentSessionId = null;
                 state.chatId = Date.now().toString(36);
+                localStorage.removeItem('raia_current_session');
                 save();
                 renderMessages({ forceScroll: true });
                 toast('New chat created', 'success');
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // SETTINGS TOGGLE
-            // ═══════════════════════════════════════════════════════════════════
             settingsToggle.addEventListener('click', () => {
                 const open = settingsPanel.classList.toggle('open');
                 settingsToggle.setAttribute('aria-expanded', String(open));
                 settingsToggle.classList.toggle('active', open);
                 const label = settingsToggle.querySelector('.label');
-                if (label) label.textContent = open ? 'Close' : 'Settings';
+                if (label) label.textContent = open ? 'Close' : 'Setup API';
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // THEME
-            // ═══════════════════════════════════════════════════════════════════
             function applyTheme() {
                 document.documentElement.setAttribute('data-theme', state.theme);
                 themeToggle.textContent = state.theme === 'dark' ? '☀️' : '🌙';
@@ -2988,9 +3214,6 @@
                 save();
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // SCROLL PROGRESS + JUMP TO BOTTOM
-            // ═══════════════════════════════════════════════════════════════════
             messages.addEventListener('scroll', () => {
                 const max = messages.scrollHeight - messages.clientHeight;
                 const pct = max > 0 ? (messages.scrollTop / max) * 100 : 0;
@@ -2999,9 +3222,6 @@
             });
             jumpBottom.addEventListener('click', () => scrollToBottom(true));
 
-            // ═══════════════════════════════════════════════════════════════════
-            // HEADER SCROLL EFFECT
-            // ═══════════════════════════════════════════════════════════════════
             let lastScrollY = 0;
             window.addEventListener('scroll', () => {
                 const y = window.scrollY;
@@ -3013,9 +3233,6 @@
                 lastScrollY = y;
             }, { passive: true });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // SPOTLIGHT (mouse-follow)
-            // ═══════════════════════════════════════════════════════════════════
             let spotlightRaf = null;
             window.addEventListener('pointermove', (e) => {
                 if (e.pointerType && e.pointerType !== 'mouse') return;
@@ -3027,9 +3244,6 @@
                 });
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // MAGNETIC BUTTONS (subtle)
-            // ═══════════════════════════════════════════════════════════════════
             document.querySelectorAll('.icon-btn, .send-btn, .btn-primary, .btn-secondary, .btn-ghost').forEach(btn => {
                 btn.addEventListener('pointermove', (e) => {
                     if (e.pointerType && e.pointerType !== 'mouse') return;
@@ -3043,9 +3257,6 @@
                 });
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // KEYBOARD SHORTCUTS
-            // ═══════════════════════════════════════════════════════════════════
             document.addEventListener('keydown', (e) => {
                 const ctrl = e.ctrlKey || e.metaKey;
                 if (ctrl && e.key.toLowerCase() === 'n') { e.preventDefault();
@@ -3055,11 +3266,15 @@
                 if (ctrl && e.key === 'Enter') { e.preventDefault();
                     chatForm.requestSubmit(); }
                 if (e.key === 'Escape' && settingsPanel.classList.contains('open')) { settingsToggle.click(); }
+                if (e.key === 'Escape' && historyDrawer.classList.contains('open')) { closeHistoryDrawer(); }
             });
 
-            // ═══════════════════════════════════════════════════════════════════
-            // INIT
-            // ═══════════════════════════════════════════════════════════════════
+            window.addEventListener('beforeunload', () => {
+                if (state.messages && state.messages.length > 0) {
+                    saveCurrentSession();
+                }
+            });
+
             load();
             populateProviders();
             updateStatus();
@@ -3078,7 +3293,16 @@
             tempDisplay.textContent = state.temp.toFixed(1);
             tokDisplay.textContent = state.maxTokens;
 
-            console.log('✦ RAIA Reflecting Tomorrow — Symmetric Intelligence');
+            if (state.currentSessionId) {
+                const sessions = getSavedSessions();
+                const found = sessions.find(s => s.id === state.currentSessionId);
+                if (found && found.messages && found.messages.length > 0) {
+                    state.messages = found.messages.slice();
+                    renderMessages({ forceScroll: true });
+                }
+            }
+
+            console.log('♕ RAIA Reflecting Tomorrow — Symmetric Intelligence');
         })();
     </script>
 </body>
