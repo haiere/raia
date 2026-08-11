@@ -647,6 +647,24 @@
             flex-shrink: 0;
         }
 
+        /* ─── ICON SYSTEM (inline SVG sprite, stroke-based) ─── */
+        .icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            display: inline-block;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+        .icon-sm { width: 14px; height: 14px; }
+        .icon-lg { width: 22px; height: 22px; }
+        .icon-xl { width: 34px; height: 34px; stroke-width: 1.6; }
+
         .icon-btn {
             width: 38px;
             height: 38px;
@@ -846,6 +864,9 @@
             text-decoration: none;
             transition: color var(--dur-fast) ease;
             font-weight: var(--weight-medium);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
         }
         .field .hint a:hover {
             text-decoration: underline;
@@ -1266,6 +1287,9 @@
             background: var(--surface-glass);
             border: 1px solid var(--border);
             letter-spacing: var(--tracking-normal);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         .chip:hover {
             color: var(--text-primary);
@@ -1317,9 +1341,9 @@
             margin-top: 2px;
         }
         .msg.assistant .avatar {
-            background: var(--surface-glass);
-            border: 1px solid var(--border);
-            color: var(--accent);
+            background: var(--gradient-accent-soft);
+            border: 1px solid var(--accent-subtle);
+            color: var(--accent-2);
         }
         .msg.user .avatar {
             background: var(--gradient-accent);
@@ -1829,6 +1853,9 @@
             letter-spacing: var(--tracking-tight);
             color: var(--text-primary);
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         .drawer-header-actions {
             display: flex;
@@ -1927,8 +1954,12 @@
             line-height: var(--leading-relaxed);
         }
         .history-empty .empty-icon {
-            font-size: 2rem;
-            opacity: 0.4;
+            opacity: 0.35;
+            color: var(--text-tertiary);
+        }
+        .history-empty .empty-icon .icon {
+            width: 34px;
+            height: 34px;
         }
 
         @media (max-width: 600px) {
@@ -2521,134 +2552,270 @@
     </style>
 </head>
 <body>
-    <div class="aurora" aria-hidden="true"></div>
-    <div class="noise" aria-hidden="true"></div>
-    <div class="spotlight" id="spotlight" aria-hidden="true"></div>
-    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Icon sprite (Lucide-style, stroke = currentColor) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></symbol>
+            <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+            <symbol id="i-history" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/><path d="M12 7v5l3 3"/></symbol>
+            <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></symbol>
+            <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"/><circle cx="12" cy="12" r="3"/></symbol>
+            <symbol id="i-eye-off" viewBox="0 0 24 24"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a21.6 21.6 0 0 1 5.06-6.06M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a21.6 21.6 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></symbol>
+            <symbol id="i-external-link" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14 21 3"/></symbol>
+            <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+            <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M4.93 19.07a10 10 0 0 1 0-14.14M7.76 16.24a6 6 0 0 1 0-8.48M16.24 7.76a6 6 0 0 1 0 8.48M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+            <symbol id="i-rotate-ccw" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8"/><path d="M3 3v5h5"/></symbol>
+            <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+            <symbol id="i-crown" viewBox="0 0 24 24"><path d="m2 18 2-11 5 4 3-6 3 6 5-4 2 11Z"/><path d="M2 18h20v3H2z"/></symbol>
+            <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+            <symbol id="i-arrow-down" viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></symbol>
+            <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+            <symbol id="i-lightbulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2Z"/></symbol>
+            <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></symbol>
+            <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M19.44 12.9a1.5 1.5 0 0 1 0-2.6l1.06-.62a1 1 0 0 0 .37-1.37l-1.5-2.6a1 1 0 0 0-1.37-.37l-1.06.6a1.5 1.5 0 0 1-2.25-1.3V3.5a1 1 0 0 0-1-1h-3a1 1 0 0 0-1 1v1.14a1.5 1.5 0 0 1-2.25 1.3l-1.06-.61a1 1 0 0 0-1.37.37l-1.5 2.6a1 1 0 0 0 .37 1.37l1.06.61a1.5 1.5 0 0 1 0 2.6l-1.06.61a1 1 0 0 0-.37 1.37l1.5 2.6a1 1 0 0 0 1.37.37l1.06-.6a1.5 1.5 0 0 1 2.25 1.3V19.5a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1.14a1.5 1.5 0 0 1 2.25-1.3l1.06.61a1 1 0 0 0 1.37-.37l1.5-2.6a1 1 0 0 0-.37-1.37Z"/></symbol>
+            <symbol id="i-map" viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2Z"/><path d="M9 4v14M15 6v14"/></symbol>
+            <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+            <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+            <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 0 1-15.3 6.4M3 12a9 9 0 0 1 15.3-6.4"/><path d="M21 3v6h-6M3 21v-6h6"/></symbol>
+            <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18"/><circle cx="12" cy="12" r="2.5"/></symbol>
+            <symbol id="i-message-circle" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-8.94 8.35 8.5 8.5 0 0 1-4.14-.9L3 20l1.06-4.06A8.38 8.38 0 0 1 3 11.5 8.38 8.38 0 0 1 11.94 3a8.38 8.38 0 0 1 9 8.5Z"/></symbol>
+            <symbol id="i-alert-triangle" viewBox="0 0 24 24"><path d="m10.29 3.86-8.18 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.89-3.14l-8.18-14a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4M12 17h.01"/></symbol>
+            <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+            <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14Z"/><path d="M10 11v6M14 11v6"/></symbol>
+        </defs>
+    </svg>
 
-    <header id="header" role="banner">
-        <a class="logo" href="#" aria-label="RAIA — Reflecting Tomorrow">
-            <img class="logo-img" src="https://i.postimg.cc/8PJ0bhb1/H-haiere.webp" alt="RAIA logo" width="38" height="38" loading="eager" decoding="async" />
-            <span class="logo-text">RAIA <small>Reflecting Tomorrow</small></span>
-        </a>
-        <div class="header-actions">
-            <button class="settings-toggle" id="settingsToggle" aria-label="Open settings" aria-expanded="false">
-                <span aria-hidden="true">⚙</span> <span class="label">Setup API</span>
-            </button>
-            <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☀︎</button>
-            <button class="icon-btn" id="newChatBtn" aria-label="New chat" title="New chat (Ctrl+N)">✚</button>
-            <button class="icon-btn" id="historyToggle" aria-label="Chat history" title="History (Ctrl+H)">⋮</button>
+    <!-- Background layers -->
+<div class="aurora" aria-hidden="true"></div>
+<div class="noise" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+<!-- Header -->
+<header id="header" role="banner">
+    <a class="logo" href="#" aria-label="RAIA — Reflecting Tomorrow">
+        <img class="logo-img" src="https://i.postimg.cc/GmWt2wch/H-blue.webp" alt="RAIA logo" width="38" height="38" loading="eager" decoding="async" />
+        <span class="logo-text">RAIA <small>Reflecting Tomorrow</small></span>
+    </a>
+
+    <div class="header-actions">
+        <button class="settings-toggle" id="settingsToggle" aria-label="Open settings" aria-expanded="false">
+            <svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg>
+            <span class="label">Setup API</span>
+        </button>
+
+        <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme"><svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg></button>
+        <button class="icon-btn" id="newChatBtn" aria-label="New chat" title="New chat (Ctrl+N)"><svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg></button>
+        <button class="icon-btn" id="historyToggle" aria-label="Chat history" title="History (Ctrl+H)"><svg class="icon" aria-hidden="true"><use href="#i-history"/></svg></button>
+    </div>
+</header>
+
+<!-- Settings Panel -->
+<div class="settings-panel" id="settingsPanel" role="region" aria-label="Settings">
+    <div class="settings-grid">
+        <div class="field">
+            <label for="provider">Provider</label>
+            <select id="provider"></select>
         </div>
-    </header>
 
-    <div class="settings-panel" id="settingsPanel" role="region" aria-label="Settings">
-        <div class="settings-grid">
-            <div class="field">
-                <label for="provider">Provider</label>
-                <select id="provider"></select>
+        <div class="field">
+            <label for="model">
+                Model
+                <span id="modelBadge" class="model-badge"></span>
+            </label>
+            <input
+                id="model"
+                list="modelListData"
+                placeholder="Choose or type a model id…"
+                autocomplete="off"
+                spellcheck="false"
+            />
+            <datalist id="modelListData"></datalist>
+        </div>
+
+        <div class="field">
+            <label for="apiKey">API Key</label>
+            <div class="api-wrap">
+                <input
+                    type="password"
+                    id="apiKey"
+                    placeholder="sk-..."
+                    autocomplete="off"
+                    spellcheck="false"
+                />
+                <button
+                    class="eye"
+                    id="eyeToggle"
+                    aria-label="Show or hide API key"
+                    type="button"
+                ><svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg></button>
             </div>
-            <div class="field">
-                <label for="model">Model <span id="modelBadge" style="font-weight:500;text-transform:none;letter-spacing:0;opacity:0.6;"></span></label>
-                <input id="model" list="modelListData" placeholder="Choose or type a model id…" autocomplete="off" spellcheck="false" />
-                <datalist id="modelListData"></datalist>
-            </div>
-            <div class="field">
-                <label for="apiKey">API Key</label>
-                <div class="api-wrap">
-                    <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off" spellcheck="false" />
-                    <button class="eye" id="eyeToggle" aria-label="Show or hide API key" type="button">👁️</button>
-                </div>
-                <div class="hint">
-                    <a href="#" target="_blank" id="keyLink" rel="noopener">Get API key ↗</a>
-                    <label class="checkbox-row">
-                        <input type="checkbox" id="rememberKey" checked /> Remember
-                    </label>
-                </div>
-            </div>
-            <div class="field" style="justify-content:flex-end;">
-                <div class="settings-actions">
-                    <button class="btn btn-primary" id="connectBtn" type="button">🔗 Connect</button>
-                    <button class="btn btn-secondary" id="testBtn" type="button">📡 Test</button>
-                    <span class="status-badge" id="statusBadge"><span class="dot" id="statusDot"></span> <span id="statusText">Disconnected</span></span>
-                </div>
+            <div class="hint">
+                <a href="#" target="_blank" id="keyLink" rel="noopener"><span>Get API key</span> <svg class="icon icon-sm" aria-hidden="true"><use href="#i-external-link"/></svg></a>
+                <label class="checkbox-row">
+                    <input type="checkbox" id="rememberKey" checked />
+                    Remember
+                </label>
             </div>
         </div>
 
-        <div style="margin-top:0.75rem;">
-            <button class="advanced-toggle" id="advancedToggle" type="button" aria-expanded="false">
-                Advanced <span class="arrow" aria-hidden="true">▾</span>
-            </button>
-            <div class="advanced-content" id="advancedContent">
-                <div class="field">
-                    <label for="customBaseUrl">Custom Base URL (optional)</label>
-                    <input id="customBaseUrl" placeholder="Leave empty to use the provider default" autocomplete="off" spellcheck="false" />
-                </div>
+        <div class="field field-actions">
+            <div class="settings-actions">
+                <button class="btn btn-primary" id="connectBtn" type="button"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-link"/></svg> Connect</button>
+                <button class="btn btn-secondary" id="testBtn" type="button"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-radio"/></svg> Test</button>
+                <span class="status-badge" id="statusBadge">
+                    <span class="dot" id="statusDot"></span>
+                    <span id="statusText">Disconnected</span>
+                </span>
             </div>
-        </div>
-
-        <div class="slider-row">
-            <div class="slider-group">
-                <label for="tempSlider">Temp</label>
-                <input type="range" id="tempSlider" min="0" max="2" step="0.1" value="0.7" />
-                <span class="slider-value" id="tempDisplay">0.7</span>
-            </div>
-            <div class="slider-group">
-                <label for="tokSlider">Max Tok</label>
-                <input type="range" id="tokSlider" min="256" max="8192" step="128" value="1024" />
-                <span class="slider-value" id="tokDisplay">1024</span>
-            </div>
-            <button class="btn btn-danger-outline btn-sm" id="resetBtn" type="button">↺ Reset all</button>
         </div>
     </div>
 
-    <div class="chat-container">
-        <div class="messages" id="messages" aria-live="polite" role="log">
-            <div class="welcome" id="welcome">
-                <div class="icon-orb" aria-hidden="true">♕</div>
-                <h2>RAIA — Reflecting Tomorrow</h2>
-                <p>Configure your <strong>API key</strong> in Settings, pick a provider and model, then start the conversation. Symmetric intelligence is ready to assist you.</p>
-                <div class="suggestion-chips" id="suggestionChips">
-                    <button class="chip" type="button" data-prompt="Explain this concept to me like I'm new to it: ">💡 Explain a concept</button>
-                    <button class="chip" type="button" data-prompt="Help me write and refine: ">✍️ Write something</button>
-                    <button class="chip" type="button" data-prompt="Review and improve this code:\n\n">🧩 Review code</button>
-                    <button class="chip" type="button" data-prompt="Give me a plan for: ">🗺️ Make a plan</button>
-                </div>
+    <div class="advanced-wrapper">
+        <button
+            class="advanced-toggle"
+            id="advancedToggle"
+            type="button"
+            aria-expanded="false"
+        >
+            Advanced
+            <svg class="icon icon-sm arrow" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+        </button>
+
+        <div class="advanced-content" id="advancedContent">
+            <div class="field">
+                <label for="customBaseUrl">Custom Base URL (optional)</label>
+                <input
+                    id="customBaseUrl"
+                    placeholder="Leave empty to use the provider default"
+                    autocomplete="off"
+                    spellcheck="false"
+                />
+            </div>
+
+            <div class="field">
+                <label for="proxyUrl">CORS Proxy URL (optional — needed for OpenAI / Perplexity / Mistral)</label>
+                <input
+                    id="proxyUrl"
+                    placeholder="e.g. https://your-worker.workers.dev"
+                    autocomplete="off"
+                    spellcheck="false"
+                />
             </div>
         </div>
+    </div>
 
-        <button class="jump-bottom" id="jumpBottom" type="button">↓ New messages</button>
+    <div class="slider-row">
+        <div class="slider-group">
+            <label for="tempSlider">Temp</label>
+            <input
+                type="range"
+                id="tempSlider"
+                min="0"
+                max="2"
+                step="0.1"
+                value="0.7"
+            />
+            <span class="slider-value" id="tempDisplay">0.7</span>
+        </div>
 
-        <div class="input-area">
-            <div class="quick-row" id="quickRow" hidden></div>
-            <form class="input-form" id="chatForm" role="form">
-                <textarea id="prompt" rows="1" placeholder="Type a message… (Enter to send, Shift+Enter for new line)" aria-label="Message"></textarea>
-                <button type="submit" class="send-btn" id="sendBtn" aria-label="Send message">
-                    <span id="sendIcon">➤</span>
+        <div class="slider-group">
+            <label for="tokSlider">Max Tok</label>
+            <input
+                type="range"
+                id="tokSlider"
+                min="256"
+                max="8192"
+                step="128"
+                value="1024"
+            />
+            <span class="slider-value" id="tokDisplay">1024</span>
+        </div>
+
+        <button class="btn btn-danger-outline btn-sm" id="resetBtn" type="button"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-rotate-ccw"/></svg> Reset all</button>
+    </div>
+</div>
+
+<!-- Chat Container -->
+<div class="chat-container">
+    <div class="messages" id="messages" aria-live="polite" role="log">
+        <div class="welcome" id="welcome">
+            <div class="icon-orb" aria-hidden="true"><svg class="icon icon-xl" aria-hidden="true"><use href="#i-crown"/></svg></div>
+            <h2>RAIA — Reflecting Tomorrow</h2>
+            <p>
+                Configure your <strong>API key</strong> in Settings, pick a provider and model, then start the conversation.
+                Symmetric intelligence is ready to assist you.
+            </p>
+
+            <div class="suggestion-chips" id="suggestionChips">
+                <button class="chip" type="button" data-prompt="Explain this concept to me like I'm new to it: ">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#i-lightbulb"/></svg> Explain a concept
                 </button>
-            </form>
-            <div class="input-meta">
-                <span id="charCount">0 characters</span>
-                <span><span class="kbd">Enter</span> to send · <span class="kbd">⇧Enter</span> new line · <span class="kbd">Ctrl K</span> focus</span>
+                <button class="chip" type="button" data-prompt="Help me write and refine: ">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#i-pencil"/></svg> Write something
+                </button>
+                <button class="chip" type="button" data-prompt="Review and improve this code:
+
+">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#i-puzzle"/></svg> Review code
+                </button>
+                <button class="chip" type="button" data-prompt="Give me a plan for: ">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#i-map"/></svg> Make a plan
+                </button>
             </div>
         </div>
     </div>
 
-    <div class="drawer-overlay" id="historyOverlay"></div>
-    <aside class="history-drawer" id="historyDrawer" role="dialog" aria-label="Chat history">
-        <div class="drawer-header">
-            <h3>📜 Riwayat Chat</h3>
-            <div class="drawer-header-actions">
-                <button class="btn btn-primary btn-sm" id="newChatDrawerBtn">+ Chat Baru</button>
-                <button class="icon-btn" id="closeHistoryBtn" aria-label="Close history">&times;</button>
-            </div>
-        </div>
-        <div class="drawer-body">
-            <ul class="history-list" id="chatHistoryList"></ul>
-        </div>
-    </aside>
+    <button class="jump-bottom" id="jumpBottom" type="button">
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-down"/></svg> New messages
+    </button>
 
-    <div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+    <div class="input-area">
+        <div class="quick-row" id="quickRow" hidden></div>
 
+        <form class="input-form" id="chatForm" role="form">
+            <textarea
+                id="prompt"
+                rows="1"
+                placeholder="Type a message… (Enter to send, Shift+Enter for new line)"
+                aria-label="Message"
+            ></textarea>
+            <button type="submit" class="send-btn" id="sendBtn" aria-label="Send message">
+                <span id="sendIcon"><svg class="icon" aria-hidden="true"><use href="#i-send"/></svg></span>
+            </button>
+        </form>
+
+        <div class="input-meta">
+            <span id="charCount">0 characters</span>
+            <span>
+                <span class="kbd">Enter</span> to send ·
+                <span class="kbd">Shift+Enter</span> new line ·
+                <span class="kbd">Ctrl K</span> focus
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- History Drawer -->
+<div class="drawer-overlay" id="historyOverlay"></div>
+
+<aside class="history-drawer" id="historyDrawer" role="dialog" aria-label="Chat history">
+    <div class="drawer-header">
+        <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#i-history"/></svg> Chat History</h3>
+        <div class="drawer-header-actions">
+            <button class="btn btn-primary btn-sm" id="newChatDrawerBtn"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-plus"/></svg> New Chat</button>
+            <button class="icon-btn" id="closeHistoryBtn" aria-label="Close history"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+        </div>
+    </div>
+
+    <div class="drawer-body">
+        <ul class="history-list" id="chatHistoryList"></ul>
+    </div>
+</aside>
+
+<!-- Toasts -->
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
     <script>
         (function() {
             'use strict';
@@ -2711,6 +2878,8 @@
             const apiKeyEl = $('#apiKey');
             const rememberKeyEl = $('#rememberKey');
             const customBaseUrlEl = $('#customBaseUrl');
+            const proxyUrlEl = $('#proxyUrl');
+            const CORS_BLOCKED = ['OpenAI', 'Perplexity', 'Mistral'];
             const eyeToggle = $('#eyeToggle');
             const connectBtn = $('#connectBtn');
             const testBtn = $('#testBtn');
@@ -2755,6 +2924,7 @@
                 apiKey: '',
                 rememberKey: true,
                 customBaseUrl: '',
+                proxyUrl: '',
                 connected: false,
                 temp: 0.7,
                 maxTokens: 1024,
@@ -2798,12 +2968,16 @@
                 } catch (_) { /* ignore */ }
             }
 
-            const TOAST_ICONS = { success: '✅', error: '⚠️', info: 'ℹ️' };
+            const TOAST_ICONS = {
+                success: '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-check"/></svg>',
+                error: '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-alert-triangle"/></svg>',
+                info: '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-info"/></svg>'
+            };
 
             function toast(msg, type = 'success') {
                 const el = document.createElement('div');
                 el.className = 'toast ' + type;
-                el.innerHTML = `<span aria-hidden="true">${TOAST_ICONS[type] || 'ℹ️'}</span><span>${escapeHtml(msg)}</span>`;
+                el.innerHTML = `<span aria-hidden="true">${TOAST_ICONS[type] || TOAST_ICONS.info}</span><span>${escapeHtml(msg)}</span>`;
                 toasts.appendChild(el);
                 setTimeout(() => { if (el.parentNode) el.remove(); }, 3800);
             }
@@ -2873,7 +3047,8 @@
 
                     const avatar = document.createElement('div');
                     avatar.className = 'avatar';
-                    avatar.textContent = m.role === 'user' ? 'U' : '✦';
+                    if (m.role === 'user') { avatar.textContent = 'U'; }
+                    else { avatar.innerHTML = '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-sparkle"/></svg>'; }
 
                     const wrap = document.createElement('div');
                     wrap.className = 'bubble-wrap';
@@ -2888,14 +3063,14 @@
 
                     const copyBtn = document.createElement('button');
                     copyBtn.type = 'button';
-                    copyBtn.innerHTML = '📋 Copy';
+                    copyBtn.innerHTML = '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-copy"/></svg> Copy';
                     copyBtn.addEventListener('click', () => copyText(m.content, copyBtn));
                     actions.appendChild(copyBtn);
 
                     if (m.role === 'assistant') {
                         const regenBtn = document.createElement('button');
                         regenBtn.type = 'button';
-                        regenBtn.innerHTML = '🔄 Regenerate';
+                        regenBtn.innerHTML = '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-refresh"/></svg> Regenerate';
                         regenBtn.addEventListener('click', () => {
                             const idx = state.messages.indexOf(m);
                             const lastUser = [...state.messages.slice(0, idx)].reverse().find(mm => mm.role ===
@@ -2933,7 +3108,7 @@
                 const done = () => {
                     if (btnEl) {
                         const original = btnEl.innerHTML;
-                        btnEl.innerHTML = '✓ Copied';
+                        btnEl.innerHTML = '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-check"/></svg> Copied';
                         btnEl.classList.add('copied');
                         setTimeout(() => { btnEl.innerHTML = original;
                             btnEl.classList.remove('copied'); }, 1500);
@@ -2970,7 +3145,7 @@
                 el.id = 'typing';
                 const avatar = document.createElement('div');
                 avatar.className = 'avatar';
-                avatar.textContent = '✦';
+                avatar.innerHTML = '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-sparkle"/></svg>';
                 const wrap = document.createElement('div');
                 wrap.className = 'bubble-wrap';
                 const bubble = document.createElement('div');
@@ -3019,7 +3194,9 @@
                 const key = providerEl.value;
                 const data = PROVIDERS[key];
                 keyLink.href = data.keyUrl || '#';
-                keyLink.textContent = data.keyUrl ? 'Get API key ↗' : '—';
+                keyLink.innerHTML = data.keyUrl
+                    ? '<span>Get API key</span> <svg class="icon icon-sm" aria-hidden="true"><use href="#i-external-link"/></svg>'
+                    : '<span>—</span>';
                 customBaseUrlEl.placeholder = `Default: ${data.baseUrl}`;
             }
 
@@ -3048,10 +3225,23 @@
             customBaseUrlEl.addEventListener('change', () => { state.customBaseUrl = customBaseUrlEl.value.trim();
                 save(); });
 
+            proxyUrlEl.addEventListener('change', () => { state.proxyUrl = proxyUrlEl.value.trim();
+                save(); });
+
+            function wrapForProxy(provider, targetUrl, headers) {
+                if (CORS_BLOCKED.includes(provider) && state.proxyUrl) {
+                    const proxyBase = state.proxyUrl.replace(/\/$/, '');
+                    return { url: proxyBase, headers: { ...headers, 'X-Target-Url': targetUrl } };
+                }
+                return { url: targetUrl, headers };
+            }
+
             eyeToggle.addEventListener('click', () => {
                 const isPass = apiKeyEl.type === 'password';
                 apiKeyEl.type = isPass ? 'text' : 'password';
-                eyeToggle.textContent = isPass ? '🙈' : '👁️';
+                eyeToggle.innerHTML = isPass
+                    ? '<svg class="icon" aria-hidden="true"><use href="#i-eye-off"/></svg>'
+                    : '<svg class="icon" aria-hidden="true"><use href="#i-eye"/></svg>';
             });
 
             rememberKeyEl.addEventListener('change', () => {
@@ -3097,7 +3287,11 @@
                 state.connected = true;
                 updateStatus();
                 save();
-                toast('Connected & saved', 'success');
+                if (CORS_BLOCKED.includes(providerEl.value) && !state.proxyUrl) {
+                    toast(`${providerEl.value} blocks direct browser requests (CORS). Chatting will fail unless you set a CORS Proxy URL under Advanced, or switch to OpenRouter.`, 'error');
+                } else {
+                    toast('Connected & saved', 'success');
+                }
             });
 
             testBtn.addEventListener('click', async () => {
@@ -3132,10 +3326,12 @@
                         });
                         if (!resp.ok) throw new Error(await extractError(resp));
                     } else {
-                        const headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` };
+                        let headers = { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` };
                         if (provider === 'OpenRouter') { headers['HTTP-Referer'] = 'https://raia-ai.netlify.app/';
                             headers['X-Title'] = 'RAIA'; }
-                        const resp = await fetch(`${baseUrl}/chat/completions`, {
+                        let testUrl = `${baseUrl}/chat/completions`;
+                        ({ url: testUrl, headers } = wrapForProxy(provider, testUrl, headers));
+                        const resp = await fetch(testUrl, {
                             method: 'POST', headers,
                             body: JSON.stringify({ model: model || 'gpt-4o-mini', max_tokens: 5,
                                 messages: [{ role: 'user', content: 'ping' }] })
@@ -3165,7 +3361,7 @@
             function friendlyError(err) {
                 const m = (err && err.message) || 'Unknown error';
                 if (/failed to fetch|networkerror|load failed/i.test(m)) {
-                    return `${m} — this can happen when the provider blocks direct browser calls (CORS). Try again, or use a provider/proxy that allows browser access.`;
+                    return `${m} — this provider blocks direct browser calls (CORS). Set a CORS Proxy URL under Advanced, or switch to OpenRouter.`;
                 }
                 return m;
             }
@@ -3194,12 +3390,13 @@
                 if (abortController) abortController.abort();
                 state = {
                     provider: 'OpenRouter', model: '', apiKey: '', rememberKey: true, customBaseUrl: '',
-                    connected: false, temp: 0.7, maxTokens: 1024, theme: state.theme,
+                    proxyUrl: '', connected: false, temp: 0.7, maxTokens: 1024, theme: state.theme,
                     messages: [], loading: false, chatId: Date.now().toString(36),
                     currentSessionId: null
                 };
                 apiKeyEl.value = '';
                 customBaseUrlEl.value = '';
+                proxyUrlEl.value = '';
                 rememberKeyEl.checked = true;
                 tempSlider.value = 0.7;
                 tokSlider.value = 1024;
@@ -3221,7 +3418,7 @@
                 if (isLoading) {
                     sendIcon.innerHTML = '<span class="spinner-ring"></span>';
                 } else {
-                    sendIcon.textContent = '➤';
+                    sendIcon.innerHTML = '<svg class="icon" aria-hidden="true"><use href="#i-send"/></svg>';
                 }
             }
 
@@ -3270,6 +3467,7 @@
                             messages: history.length > 0 ? history : [{ role: 'user', content: userMsg }] });
                     }
 
+                    ({ url, headers } = wrapForProxy(provider, url, headers));
                     const resp = await fetch(url, { method: 'POST', headers, body, signal: abortController.signal });
                     if (!resp.ok) throw new Error(await extractError(resp));
 
@@ -3293,21 +3491,21 @@
                         toast('Generation stopped', 'info');
                     } else if (err.message === 'NOT_CONNECTED') {
                         errText =
-                            `⚠️ **Not connected**\n\nMake sure your API Key is filled in and click **Connect** in the Settings panel.`;
+                            `**Not connected**\n\nMake sure your API Key is filled in and click **Connect** in the Settings panel.`;
                     } else if (/401|unauthorized|invalid/i.test(err.message)) {
                         errText =
-                            `❌ **Invalid API Key**\n\nCheck your key, make sure there are no extra spaces, and that it has access to **${state.model}**.`;
+                            `**Invalid API Key**\n\nCheck your key, make sure there are no extra spaces, and that it has access to **${state.model}**.`;
                     } else if (/429|rate/i.test(err.message)) {
                         errText =
-                            `⏱️ **Rate limit / quota exceeded**\n\nTry again later or check your provider dashboard.`;
+                            `**Rate limit / quota exceeded**\n\nTry again later or check your provider dashboard.`;
                     } else if (/404|not found/i.test(err.message)) {
                         errText =
-                            `🔍 **Model not found**\n\nMake sure **${state.model}** is a valid, currently available model for **${PROVIDERS[state.provider]?.label}**.`;
+                            `**Model not found**\n\nMake sure **${state.model}** is a valid, currently available model for **${PROVIDERS[state.provider]?.label}**.`;
                     } else if (/fetch|network|load failed/i.test(err.message)) {
-                        errText = `🌐 **Connection failed**\n\n${friendlyError(err)}`;
+                        errText = `**Connection failed**\n\n${friendlyError(err)}`;
                     } else {
                         errText =
-                            `❌ **Error from ${PROVIDERS[state.provider]?.label || state.provider}**\n\n${err.message}`;
+                            `**Error from ${PROVIDERS[state.provider]?.label || state.provider}**\n\n${err.message}`;
                     }
                     if (errText) addMessage('assistant', errText);
                 } finally {
@@ -3404,9 +3602,9 @@
                 if (sessions.length === 0) {
                     chatHistoryList.innerHTML = `
                             <li class="history-empty">
-                                <span class="empty-icon">💬</span>
-                                <span>Belum ada riwayat percakapan.</span>
-                                <span style="font-size:var(--text-xs);color:var(--text-quaternary);">Mulai chat baru untuk menyimpan percakapan.</span>
+                                <span class="empty-icon"><svg class="icon icon-lg" aria-hidden="true"><use href="#i-message-circle"/></svg></span>
+                                <span>No conversation history yet.</span>
+                                <span style="font-size:var(--text-xs);color:var(--text-quaternary);">Start a chat for a conversation.</span>
                             </li>
                         `;
                     return;
@@ -3516,7 +3714,9 @@
 
             function applyTheme() {
                 document.documentElement.setAttribute('data-theme', state.theme);
-                themeToggle.textContent = state.theme === 'dark' ? '☀️' : '🌙';
+                themeToggle.innerHTML = state.theme === 'dark'
+                    ? '<svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg>'
+                    : '<svg class="icon" aria-hidden="true"><use href="#i-moon"/></svg>';
             }
             themeToggle.addEventListener('click', () => {
                 state.theme = state.theme === 'dark' ? 'light' : 'dark';
@@ -3596,6 +3796,7 @@
                 state.connected = true;
                 updateStatus(); }
             if (state.customBaseUrl) customBaseUrlEl.value = state.customBaseUrl;
+            if (state.proxyUrl) proxyUrlEl.value = state.proxyUrl;
             rememberKeyEl.checked = state.rememberKey !== false;
 
             tempSlider.value = state.temp;
@@ -3611,8 +3812,32 @@
                     renderMessages({ forceScroll: true });
                 }
             }
+            
+            //THEME & LOGO
+            var LOGO_LIGHT = 'https://i.postimg.cc/GmWt2wch/H-blue.webp';
+            var LOGO_DARK = 'https://i.postimg.cc/8PJ0bhb1/H-haiere.webp';
 
-            console.log('♕ RAIA Reflecting Tomorrow — Symmetric Intelligence');
+            function updateLogo() {
+                var isDark = document.documentElement.classList.contains('dark');
+                var newSrc = isDark ? LOGO_DARK : LOGO_LIGHT;
+
+                document.querySelectorAll('.logo-img').forEach(function(img) {
+                    if (img.getAttribute('src') === newSrc) return;
+                    img.classList.add('logo-switching');
+                    setTimeout(function() {
+                        img.src = newSrc;
+                        img.onload = function() {
+                            img.classList.remove('logo-switching');
+                            img.onload = null;
+                        };
+                        setTimeout(function() {
+                            img.classList.remove('logo-switching');
+                        }, 400);
+                    }, 120);
+                });
+            }
+
+            console.log('RAIA — Reflecting Tomorrow — Symmetric Intelligence');
         })();
     </script>
 </body>
