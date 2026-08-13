@@ -162,7 +162,7 @@ RAIA is released under the MIT license. See the `LICENSE` file for full details.
 
 ## Author and Support
 
-Developed and maintained by Haiere. For bug reports, feature requests, or questions, please use the project issue tracker or contact via the repository.
+Developed and maintained by Haiere and HajirStudio. For bug reports, feature requests, or questions, please use the project issue tracker or contact via the repository.
 
 ---
 
